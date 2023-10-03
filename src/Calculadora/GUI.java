@@ -29,12 +29,15 @@ public class GUI {
         f.setUndecorated(true);
 
         //AJUSTES DEL JFRAME
+
         p[0] = new JPanel(new FlowLayout(FlowLayout.TRAILING));
         p[0].setBackground(colorPrincipal);
 
+        //Label Título
         JLabel lTitulo = new JLabel("Calculadora    ");
         p[0].add(lTitulo);
 
+        //Button Minimizar
         JButton bMinimizar = new JButton("_");
         bMinimizar.setBackground(colorSecundario);
         bMinimizar.setFocusPainted(false);
@@ -45,6 +48,7 @@ public class GUI {
         });
         p[0].add(bMinimizar);
 
+        //Button Cerrar
         JButton bCerrar = new JButton("X");
         bCerrar.setBackground(colorSecundario);
         bCerrar.setFocusPainted(false);
@@ -55,8 +59,7 @@ public class GUI {
         });
         p[0].add(bCerrar);
 
-        //MOVILIDAD DE LA VENTANA
-
+        //Movilidad Ventana
         final Point[] initialClick = {null};
         f.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
@@ -82,9 +85,11 @@ public class GUI {
         p[1] = new JPanel(new FlowLayout());
         p[1].setBackground(colorPrincipal);
 
+        //Label Operando1
         JLabel lOperando1 = new JLabel("Primer operando");
         p[1].add(lOperando1);
 
+        //TextField Operando1
         JTextField tfOperando1 = new JTextField(16);
         tfOperando1.setBorder(new LineBorder(colorSecundario));
         tfOperando1.setBackground(colorTextfield);
@@ -93,21 +98,25 @@ public class GUI {
         p[2] = new JPanel(new FlowLayout());
         p[2].setBackground(colorPrincipal);
 
+        //Button Suma
         JButton bSuma = new JButton("+");
         bSuma.setBackground(colorSecundario);
         bSuma.setFocusPainted(false);
         p[2].add(bSuma);
 
+        //Button Resta
         JButton bResta = new JButton("-");
         bResta.setBackground(colorSecundario);
         bResta.setFocusPainted(false);
         p[2].add(bResta);
 
+        //Button Multiplica
         JButton bMulti = new JButton("x");
         bMulti.setBackground(colorSecundario);
         bMulti.setFocusPainted(false);
         p[2].add(bMulti);
 
+        //Button Divide
         JButton bDivid = new JButton("/");
         bDivid.setBackground(colorSecundario);
         bDivid.setFocusPainted(false);
@@ -115,10 +124,12 @@ public class GUI {
 
         p[3] = new JPanel(new FlowLayout());
 
+        //Label Operando2
         JLabel lOperando2 = new JLabel("Segundo operando");
         p[3].add(lOperando2);
         p[3].setBackground(colorPrincipal);
 
+        //TextField Operando2
         JTextField tfOperando2 = new JTextField(16);
         tfOperando2.setBorder(new LineBorder(colorSecundario));
         tfOperando2.setBackground(colorTextfield);
@@ -127,11 +138,13 @@ public class GUI {
         p[4] = new JPanel(new FlowLayout());
         p[4].setBackground(colorPrincipal);
 
+        //Button Calcular
         JButton bCalcular =  new JButton("¡CALCULAR!");
         bCalcular.setBackground(colorSecundario);
         bCalcular.setFocusPainted(false);
         p[4].add(bCalcular);
 
+        //Button Answer
         JButton bAns =  new JButton("Ans");
         bAns.setBackground(colorSecundario);
         bAns.setFocusPainted(false);
@@ -140,9 +153,11 @@ public class GUI {
         p[5] = new JPanel(new FlowLayout());
         p[5].setBackground(colorPrincipal);
 
+        //Label Resultado
         JLabel jResultado = new JLabel("Resultado");
         p[5].add(jResultado);
 
+        //TextField Resultado
         JTextField tfResultado = new JTextField(16);
         tfResultado.setBackground(colorTextfield);
         tfResultado.setEditable(false);
@@ -159,6 +174,8 @@ public class GUI {
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setResizable(false);
 
+        //FUNCIONALIDAD BOTONES
+        
         bSuma.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
