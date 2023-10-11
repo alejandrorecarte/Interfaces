@@ -20,6 +20,8 @@ public class GUI {
     private static Color colorSecundario = new Color(COLOR_SECUNDARIO[0], COLOR_SECUNDARIO[1], COLOR_SECUNDARIO[2]);
     private static Color colorSeleccion = new Color(COLOR_SELECCION[0], COLOR_SELECCION[1], COLOR_SELECCION[2]);
     private static Color colorTextfield = new Color(COLOR_TEXTFIELD[0], COLOR_TEXTFIELD[1], COLOR_TEXTFIELD[2]);
+    private static JButton bSuma;
+
     public static void principal(){
 
         JPanel p[] = new JPanel[6];
@@ -99,7 +101,7 @@ public class GUI {
         p[2].setBackground(colorPrincipal);
 
         //Button Suma
-        JButton bSuma = new JButton("+");
+        bSuma = new JButton("+");
         bSuma.setBackground(colorSecundario);
         bSuma.setFocusPainted(false);
         p[2].add(bSuma);
@@ -179,44 +181,28 @@ public class GUI {
         bSuma.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                bSuma.setBackground(colorSeleccion);
-                bResta.setBackground(colorSecundario);
-                bMulti.setBackground(colorSecundario);
-                bDivid.setBackground(colorSecundario);
-                operacion = 1;
+                //sumar();
             }
         });
 
         bResta.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                bSuma.setBackground(colorSecundario);
-                bResta.setBackground(colorSeleccion);
-                bMulti.setBackground(colorSecundario);
-                bDivid.setBackground(colorSecundario);
-                operacion = 2;
+                //restar();
             }
         });
 
         bMulti.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                bSuma.setBackground(colorSecundario);
-                bResta.setBackground(colorSecundario);
-                bMulti.setBackground(colorSeleccion);
-                bDivid.setBackground(colorSecundario);
-                operacion = 3;
+                //multiplicar();
             }
         });
 
         bDivid.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                bSuma.setBackground(colorSecundario);
-                bResta.setBackground(colorSecundario);
-                bMulti.setBackground(colorSecundario);
-                bDivid.setBackground(colorSeleccion);
-                operacion = 4;
+                //dividir();
             }
         });
 
@@ -240,4 +226,35 @@ public class GUI {
             }
         });
     }
+    /*public static void sumar() {
+        bSuma.setBackground(colorSeleccion);
+        bResta.setBackground(colorSecundario);
+        bMulti.setBackground(colorSecundario);
+        bDivid.setBackground(colorSecundario);
+        operacion = 1;
+    }
+
+    public static void restar() {
+        bSuma.setBackground(colorSecundario);
+        bResta.setBackground(colorSeleccion);
+        bMulti.setBackground(colorSecundario);
+        bDivid.setBackground(colorSecundario);
+        operacion = 2;
+    }
+
+    private static void multiplicar() {
+        bSuma.setBackground(colorSecundario);
+        bResta.setBackground(colorSecundario);
+        bMulti.setBackground(colorSeleccion);
+        bDivid.setBackground(colorSecundario);
+        operacion = 3;
+    }
+
+    private static void dividir() {
+        bSuma.setBackground(colorSecundario);
+        bResta.setBackground(colorSecundario);
+        bMulti.setBackground(colorSecundario);
+        bDivid.setBackground(colorSeleccion);
+        operacion = 4;
+    }*/
 }

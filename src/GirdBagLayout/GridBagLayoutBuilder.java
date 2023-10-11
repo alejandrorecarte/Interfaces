@@ -61,6 +61,7 @@ public class GridBagLayoutBuilder {
 
 
         f.add(p);
+        f.setResizable(false);
         f.setVisible(true);
     }
 }
