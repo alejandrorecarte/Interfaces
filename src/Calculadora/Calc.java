@@ -11,6 +11,8 @@ public class Calc {
             case 2: resultado = op1 - op2; break;
             case 3: resultado = op1 * op2; break;
             case 4: resultado = op1 / op2; break;
+            case 5: resultado = Math.pow(op1, op2); break;
+            case 6: resultado = Math.pow(op1, 1.0 / op2); break;
             default: resultado = 0;
         }
 
@@ -62,5 +64,15 @@ public class Calc {
         return resultado;
     }
 
-
+    public static int mcd(int a, int b) {
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+    public static int mcm(int a, int b) {
+        return a * (b / mcd(a, b));
+    }
 }
