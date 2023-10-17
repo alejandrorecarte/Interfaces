@@ -12,18 +12,18 @@ import java.sql.SQLOutput;
 public class GUI {
 
     private static JFrame f;
-    private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private static int[] TAMANYO_VENTANA = {400, 400};
+    protected static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    protected static int[] TAMANYO_VENTANA = {400, 400};
     private static int operacion;
     private final static int[] COD_PRINCIPAL = {188,152,243};
     private final static int[] COD_SECUNDARIO = {211,188,246};
     private final static int[] COD_SELECCION = {244,126,142};
     private final static int[] COD_TEXTFIELD = {244,208,213};
 
-    private final static Color COLOR_PRINCIPAL = new Color(COD_PRINCIPAL[0], COD_PRINCIPAL[1], COD_PRINCIPAL[2]);
-    private final static Color COLOR_SECUNDARIO = new Color(COD_SECUNDARIO[0], COD_SECUNDARIO[1], COD_SECUNDARIO[2]);
-    private final static Color COLOR_SELECCION = new Color(COD_SELECCION[0], COD_SELECCION[1], COD_SELECCION[2]);
-    private final static Color COLOR_TEXTFIELD = new Color(COD_TEXTFIELD[0], COD_TEXTFIELD[1], COD_TEXTFIELD[2]);
+    protected final static Color COLOR_PRINCIPAL = new Color(COD_PRINCIPAL[0], COD_PRINCIPAL[1], COD_PRINCIPAL[2]);
+    protected final static Color COLOR_SECUNDARIO = new Color(COD_SECUNDARIO[0], COD_SECUNDARIO[1], COD_SECUNDARIO[2]);
+    protected final static Color COLOR_SELECCION = new Color(COD_SELECCION[0], COD_SELECCION[1], COD_SELECCION[2]);
+    protected final static Color COLOR_TEXTFIELD = new Color(COD_TEXTFIELD[0], COD_TEXTFIELD[1], COD_TEXTFIELD[2]);
     private static JButton bSumaCalc;
     private static JButton bRestaCalc;
     private static JButton bMultiCalc;
@@ -39,7 +39,7 @@ public class GUI {
         f.setUndecorated(true);
         f.setBackground(COLOR_PRINCIPAL);
 
-        //AJUSTES DEL JFRAME
+        //AJUSTES DEL JFRAME===================================================================================================================================================================================================================================
 
         JPanel pBotones = new JPanel(new GridBagLayout());
         pBotones.setBackground(COLOR_SECUNDARIO);
@@ -92,12 +92,13 @@ public class GUI {
                 int yMoved = thisY + e.getY() - initialClick[0].y;
 
                 f.setLocation(xMoved, yMoved);
+                Digitos.setLocation(xMoved +TAMANYO_VENTANA[0], yMoved +TAMANYO_VENTANA[1]/4);
             }
         });
 
         //PANEL SELECCION========================================================================================================================================
 
-        JPanel pSeleccion = new JPanel(new FlowLayout());
+        JPanel pSeleccion = new JPanel(new GridLayout(0,3));
         pSeleccion.setBorder(new LineBorder(COLOR_SECUNDARIO, 2));
         pSeleccion.setBackground(COLOR_PRINCIPAL);
 
@@ -105,18 +106,20 @@ public class GUI {
         JButton bCalculadoraSel = new JButton("Calculadora");
         bCalculadoraSel.setBackground(COLOR_SECUNDARIO);
         bCalculadoraSel.setFocusPainted(false);
+        bCalculadoraSel.setBorder(new LineBorder(COLOR_PRINCIPAL,2));
         pSeleccion.add(bCalculadoraSel);
 
         JButton bFactorizacionSel = new JButton("Factorización");
         bFactorizacionSel.setBackground(COLOR_SECUNDARIO);
         bFactorizacionSel.setFocusPainted(false);
+        bFactorizacionSel.setBorder(new LineBorder(COLOR_PRINCIPAL,2));
         pSeleccion.add(bFactorizacionSel);
 
         JButton bMCMMCDSel = new JButton("MCM y MCD");
         bMCMMCDSel.setBackground(COLOR_SECUNDARIO);
         bMCMMCDSel.setFocusPainted(false);
+        bMCMMCDSel.setBorder(new LineBorder(COLOR_PRINCIPAL,2));
         pSeleccion.add(bMCMMCDSel);
-
 
         //PANEL CALCULADORA======================================================================================================================================
 
@@ -134,8 +137,15 @@ public class GUI {
         JTextField tfOperando1Calc = new JTextField(16);
         tfOperando1Calc.setBorder(new LineBorder(COLOR_SECUNDARIO));
         tfOperando1Calc.setBackground(COLOR_TEXTFIELD);
-        pCalculadora.add(tfOperando1Calc, new GridBagConstraints(0,1, 6, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
-                new Insets(3,10,3,10), 0, 0));
+        pCalculadora.add(tfOperando1Calc, new GridBagConstraints(0,1, 5, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+                new Insets(3,10,3,3), 0, 0));
+
+        //JButton DigitosOperando1
+        JButton bDigitosOperando1Calc = new JButton("N");
+        bDigitosOperando1Calc.setBackground(COLOR_SECUNDARIO);
+        bDigitosOperando1Calc.setFocusPainted(false);
+        pCalculadora.add(bDigitosOperando1Calc, new GridBagConstraints(5,1, 1, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+                new Insets(3,3,3,10), 0, 0));
 
         //Button Suma
         bSumaCalc = new JButton("+");
@@ -165,18 +175,19 @@ public class GUI {
         pCalculadora.add(bDividCalc,  new GridBagConstraints(3,2, 1, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
                 new Insets(3,3,3,3), 0, 0));
 
+        //Button Potencia
         bPotenciaCalc = new JButton("^");
         bPotenciaCalc.setBackground(COLOR_SECUNDARIO);
         bPotenciaCalc.setFocusPainted(false);
         pCalculadora.add(bPotenciaCalc,  new GridBagConstraints(4,2, 1, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
                 new Insets(3,3,3,3), 0, 0));
 
+        //Button Raiz
         bRaizCalc = new JButton ("√");
         bRaizCalc.setBackground(COLOR_SECUNDARIO);
         bRaizCalc.setFocusPainted(false);
         pCalculadora.add(bRaizCalc,  new GridBagConstraints(5,2, 1, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
                 new Insets(3,3,3,10), 0, 0));
-
 
         //Label Operando2
         JLabel lOperando2Calc = new JLabel("Segundo operando");
@@ -188,9 +199,15 @@ public class GUI {
         JTextField tfOperando2Calc = new JTextField(16);
         tfOperando2Calc.setBorder(new LineBorder(COLOR_SECUNDARIO));
         tfOperando2Calc.setBackground(COLOR_TEXTFIELD);
-        pCalculadora.add(tfOperando2Calc,  new GridBagConstraints(0,4, 6, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+        pCalculadora.add(tfOperando2Calc,  new GridBagConstraints(0,4, 5, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
                 new Insets(3,10,3,10), 0, 0));
 
+        //JButton DigitosOperando2
+        JButton bDigitosOperando2Calc = new JButton("N");
+        bDigitosOperando2Calc.setBackground(COLOR_SECUNDARIO);
+        bDigitosOperando2Calc.setFocusPainted(false);
+        pCalculadora.add(bDigitosOperando2Calc, new GridBagConstraints(5,4, 1, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+                new Insets(3,3,3,10), 0, 0));
 
         //Button Calcular
         JButton bCalcularCalc =  new JButton("¡CALCULAR!");
@@ -226,26 +243,33 @@ public class GUI {
 
         //Label Operando
         JLabel lOperandoFact = new JLabel("Introduce el operando");
-        pFactorizacion.add(lOperandoFact,  new GridBagConstraints(0,0, 1, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+        pFactorizacion.add(lOperandoFact,  new GridBagConstraints(0,0, 2, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
                 new Insets(3,10,3,10), 0, 0));
 
         //TextField Operando
         JTextField tfOperandoFact = new JTextField();
         tfOperandoFact.setBackground(COLOR_TEXTFIELD);
         tfOperandoFact.setBorder(new LineBorder(COLOR_SECUNDARIO));
-        pFactorizacion.add(tfOperandoFact,  new GridBagConstraints(0,1, 1, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+        pFactorizacion.add(tfOperandoFact,  new GridBagConstraints(0,1, 1, 1, 10.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
                 new Insets(3,10,3,10), 0, 0));
+
+        //JButton DigitosOperandoFact
+        JButton bDigitosOperandoFact = new JButton("N");
+        bDigitosOperandoFact.setBackground(COLOR_SECUNDARIO);
+        bDigitosOperandoFact.setFocusPainted(false);
+        pFactorizacion.add(bDigitosOperandoFact, new GridBagConstraints(1,1, 1, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+                new Insets(3,3,3,10), 0, 0));
 
         //Button Calcular
         JButton bCalcularFact = new JButton("Calcular");
         bCalcularFact.setBackground(COLOR_SECUNDARIO);
         bCalcularFact.setFocusPainted(false);
-        pFactorizacion.add(bCalcularFact,  new GridBagConstraints(0,2, 1, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+        pFactorizacion.add(bCalcularFact,  new GridBagConstraints(0,2, 2, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
                 new Insets(3,10,3,10), 0, 0));
 
         //Label Resultado
         JLabel lResultadoFact = new JLabel("Resultado");
-        pFactorizacion.add(lResultadoFact,  new GridBagConstraints(0,3, 1, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+        pFactorizacion.add(lResultadoFact,  new GridBagConstraints(0,3, 2, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
                 new Insets(3,10,3,10), 0, 0));
 
         //Text Area Resultado
@@ -260,7 +284,7 @@ public class GUI {
         taResultadoFact.setBackground(COLOR_TEXTFIELD);
         taResultadoFact.setEditable(false);
         taResultadoFact.setBorder(new LineBorder(COLOR_SECUNDARIO));
-        pFactorizacion.add(spResultadoFact,  new GridBagConstraints(0,4, 1, 1, 1.0, 15.0, GridBagConstraints.WEST, GridBagConstraints.BOTH,
+        pFactorizacion.add(spResultadoFact,  new GridBagConstraints(0,4, 2, 1, 1.0, 15.0, GridBagConstraints.WEST, GridBagConstraints.BOTH,
                 new Insets(3,10,10,10), 0, 0));
 
         pFactorizacion.setVisible(false);
@@ -273,45 +297,66 @@ public class GUI {
 
         //Label Operando1
         JLabel lOperando1MCMMCD = new JLabel("Primer operando");
-        pMCMMCD.add(lOperando1MCMMCD,  new GridBagConstraints(0,0, 2, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.BOTH,
+        pMCMMCD.add(lOperando1MCMMCD,  new GridBagConstraints(0,0, 4, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.BOTH,
                 new Insets(3,10,3,10), 0, 0));
 
         //TextField Operando1
         JTextField tfOperando1MCMMCD = new JTextField();
         tfOperando1MCMMCD.setBackground(COLOR_TEXTFIELD);
         tfOperando1MCMMCD.setBorder(new LineBorder(COLOR_SECUNDARIO));
-        pMCMMCD.add(tfOperando1MCMMCD,  new GridBagConstraints(0,1, 2, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
-                new Insets(3,10,3,10), 0, 0));
+        pMCMMCD.add(tfOperando1MCMMCD,  new GridBagConstraints(0,1, 1, 1, 10.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+                new Insets(3,10,3,3), 0, 0));
+
+        //JButton DigitosOperando1
+        JButton bDigitosOperando1MCMMCD = new JButton("N");
+        bDigitosOperando1MCMMCD.setBackground(COLOR_SECUNDARIO);
+        bDigitosOperando1MCMMCD.setFocusPainted(false);
+        pMCMMCD.add(bDigitosOperando1MCMMCD, new GridBagConstraints(1,1, 1, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+                new Insets(3,3,3,10), 0, 0));
 
         //Label Operando2
         JLabel lOperando2MCMMCD = new JLabel("Segundo operando");
-        pMCMMCD.add(lOperando2MCMMCD,  new GridBagConstraints(0,2, 2, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+        pMCMMCD.add(lOperando2MCMMCD,  new GridBagConstraints(0,2, 4, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
                 new Insets(3,10,3,10), 0, 0));
 
         //TextField Operando2
         JTextField tfOperando2MCMMCD = new JTextField();
         tfOperando2MCMMCD.setBackground(COLOR_TEXTFIELD);
         tfOperando2MCMMCD.setBorder(new LineBorder(COLOR_SECUNDARIO));
-        pMCMMCD.add(tfOperando2MCMMCD,  new GridBagConstraints(0,3, 2, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+        pMCMMCD.add(tfOperando2MCMMCD,  new GridBagConstraints(0,3, 1, 1, 10.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
                 new Insets(3,10,3,10), 0, 0));
+
+        //JButton DigitosOperando2
+        JButton bDigitosOperando2MCMMCD = new JButton("N");
+        bDigitosOperando2MCMMCD.setBackground(COLOR_SECUNDARIO);
+        bDigitosOperando2MCMMCD.setFocusPainted(false);
+        pMCMMCD.add(bDigitosOperando2MCMMCD, new GridBagConstraints(1,3, 1, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+                new Insets(3,3,3,10), 0, 0));
+
+       JPanel pBotonesMCMMCD = new JPanel(new GridBagLayout());
+       pBotonesMCMMCD.setBackground(COLOR_PRINCIPAL);
 
         //Button MCM
         JButton bMCM = new JButton("MCM");
         bMCM.setBackground(COLOR_SECUNDARIO);
         bMCM.setFocusPainted(false);
-        pMCMMCD.add(bMCM,  new GridBagConstraints(0,4, 1, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+        pBotonesMCMMCD.add(bMCM,  new GridBagConstraints(0,0, 1, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
                 new Insets(3,10,3,3), 0, 0));
 
         //Button MCD
         JButton bMCD = new JButton("MCD");
         bMCD.setBackground(COLOR_SECUNDARIO);
         bMCD.setFocusPainted(false);
-        pMCMMCD.add(bMCD,  new GridBagConstraints(1,4, 1, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+        pBotonesMCMMCD.add(bMCD,  new GridBagConstraints(1,0, 1, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
                 new Insets(3,3,3,10), 0, 0));
+
+
+        pMCMMCD.add(pBotonesMCMMCD,  new GridBagConstraints(0,4, 2, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+                        new Insets(0,0,0,0), 0, 0));
 
         //Label Resultado
         JLabel lResultadoMCMMCD = new JLabel("Resultado");
-        pMCMMCD.add(lResultadoMCMMCD,  new GridBagConstraints(0,5, 2, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+        pMCMMCD.add(lResultadoMCMMCD,  new GridBagConstraints(0,5, 4, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
                 new Insets(3,10,3,10), 0, 0));
 
         //TextField Resultado
@@ -319,7 +364,7 @@ public class GUI {
         tfResultadoMCMMCD.setBackground(COLOR_TEXTFIELD);
         tfResultadoMCMMCD.setBorder(new LineBorder(COLOR_SECUNDARIO));
         tfResultadoMCMMCD.setEditable(false);
-        pMCMMCD.add(tfResultadoMCMMCD,  new GridBagConstraints(0,6, 2, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+        pMCMMCD.add(tfResultadoMCMMCD,  new GridBagConstraints(0,6, 4, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
                 new Insets(3,10,10,10), 0, 0));
 
         pMCMMCD.setVisible(false);
@@ -339,11 +384,11 @@ public class GUI {
         f.add(pMCMMCD,  new GridBagConstraints(0,2, 1, 1, 1.0, 20.0, GridBagConstraints.WEST, GridBagConstraints.BOTH,
                 new Insets(0,0,0,0), 0, 0));
 
-        f.setVisible(true);
         f.setFocusable(true);
         f.setBounds((screenSize.width/2-TAMANYO_VENTANA[0]/2),(screenSize.height/2-TAMANYO_VENTANA[1]/2),TAMANYO_VENTANA[0],TAMANYO_VENTANA[1]);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setResizable(false);
+        f.setVisible(true);
 
         //FUNCIONALIDADES===========================================================================================================================================
 
@@ -356,6 +401,7 @@ public class GUI {
                 pFactorizacion.setVisible(false);
                 pMCMMCD.setVisible(false);
                 pCalculadora.setVisible(true);
+                Digitos.ocultarDigitos();
                 pCalculadora.requestFocus();
             }
         });
@@ -367,6 +413,7 @@ public class GUI {
                 pCalculadora.setVisible(false);
                 pFactorizacion.setVisible(true);
                 pMCMMCD.setVisible(false);
+                Digitos.ocultarDigitos();
                 pFactorizacion.requestFocus();
             }
         });
@@ -378,6 +425,7 @@ public class GUI {
                 pCalculadora.setVisible(false);
                 pFactorizacion.setVisible(false);
                 pMCMMCD.setVisible(true);
+                Digitos.ocultarDigitos();
                 pMCMMCD.requestFocus();
             }
         });
@@ -385,6 +433,37 @@ public class GUI {
         //Calculadora
 
         //ActionListeners
+
+        //Boton Digitos Operando1
+        bDigitosOperando1Calc.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!Digitos.isVisible() || !Digitos.getTitulo().equals("Operando 1")) {
+                    Digitos.ocultarDigitos();
+                    Digitos.digitos(tfOperando1Calc, "Operando 1", pCalculadora);
+                    pCalculadora.requestFocus();
+                }else{
+                    Digitos.ocultarDigitos();
+                    pCalculadora.requestFocus();
+                }
+            }
+        });
+
+        //Botón Digitos Operando2
+        bDigitosOperando2Calc.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!Digitos.isVisible() || !Digitos.getTitulo().equals("Operando 2")) {
+                    Digitos.ocultarDigitos();
+                    Digitos.digitos(tfOperando2Calc, "Operando 2", pCalculadora);
+                    pCalculadora.requestFocus();
+                }else{
+                    Digitos.ocultarDigitos();
+                    pCalculadora.requestFocus();
+                }
+            }
+        });
+
         //Botón Suma
         bSumaCalc.addActionListener(new ActionListener() {
             @Override
@@ -438,10 +517,9 @@ public class GUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    tfResultadoCalc.setText(String.valueOf(Calc.calcular(operacion, Double.parseDouble(tfOperando1Calc.getText()), Double.parseDouble(tfOperando1Calc.getText()))));
-                }catch (Exception ex){
-                    JOptionPane.showMessageDialog(f, ex.getMessage(), "Error al hacer el cálculo", JOptionPane.ERROR_MESSAGE);
-                }            }
+                    tfResultadoCalc.setText(String.valueOf(Calc.calcular(operacion, Double.parseDouble(tfOperando1Calc.getText()), Double.parseDouble(tfOperando2Calc.getText()))));
+                } catch (Exception ex) {}
+            }
         });
 
         //Botón Ans
@@ -478,10 +556,9 @@ public class GUI {
 
                 if(e.getKeyCode() == KeyEvent.VK_ENTER){
                     try {
-                        tfResultadoCalc.setText(String.valueOf(Calc.calcular(operacion, Double.parseDouble(tfOperando1Calc.getText()), Double.parseDouble(tfOperando1Calc.getText()))));
-                    }catch (Exception ex){
-                        JOptionPane.showMessageDialog(f, ex.getMessage(), "Error al hacer el cálculo", JOptionPane.ERROR_MESSAGE);
-                    }                }
+                        tfResultadoCalc.setText(String.valueOf(Calc.calcular(operacion, Double.parseDouble(tfOperando1Calc.getText()), Double.parseDouble(tfOperando2Calc.getText()))));
+                    }catch (Exception ex){}
+                }
             }
         };
 
@@ -493,10 +570,26 @@ public class GUI {
         bRestaCalc.addKeyListener(keyAdapterCalc);
         bMultiCalc.addKeyListener(keyAdapterCalc);
         bDividCalc.addKeyListener(keyAdapterCalc);
+        bDigitosOperando1Calc.addKeyListener(keyAdapterCalc);
+        bDigitosOperando2Calc.addKeyListener(keyAdapterCalc);
 
         //Factorización
 
         //ActionListener
+
+        //Botón Digitos Operando
+        bDigitosOperandoFact.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!Digitos.isVisible() || !Digitos.getTitulo().equals("Operando")) {
+                    Digitos.ocultarDigitos();
+                    Digitos.digitos(tfOperandoFact, "Operando", pFactorizacion);
+                }else{
+                    Digitos.ocultarDigitos();
+                }
+            }
+        });
+
         //Calcular
         bCalcularFact.addActionListener(new ActionListener() {
             @Override
@@ -525,9 +618,39 @@ public class GUI {
         //TextField Operando
         tfOperandoFact.addKeyListener(keyAdapterFact);
 
+        //Boton Digitos Operando
+        bDigitosOperandoFact.addKeyListener(keyAdapterFact);
+
         //MCM y MCD
 
         //ActionListener
+
+        //Boton Digitos Operando 1
+        bDigitosOperando1MCMMCD.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!Digitos.isVisible() || !Digitos.getTitulo().equals("Operando 1")) {
+                    Digitos.ocultarDigitos();
+                    Digitos.digitos(tfOperando1MCMMCD, "Operando 1", pMCMMCD);
+                }else{
+                    Digitos.ocultarDigitos();
+                }
+            }
+        });
+
+        //Botón Digitos Operando 2
+        bDigitosOperando2MCMMCD.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!Digitos.isVisible() || !Digitos.getTitulo().equals("Operando 2")) {
+                    Digitos.ocultarDigitos();
+                    Digitos.digitos(tfOperando2MCMMCD, "Operando 2", pMCMMCD);
+                }else{
+                    Digitos.ocultarDigitos();
+                }
+            }
+        });
+
         //MCM
         bMCM.addActionListener(new ActionListener() {
             @Override
@@ -588,6 +711,12 @@ public class GUI {
 
         //Boton MCD
         bMCD.addKeyListener(keyAdapterMCMMCD);
+
+        //Boton Digitos Operando 1
+        bDigitosOperando1MCMMCD.addKeyListener(keyAdapterMCMMCD);
+
+        //Boton Digitos Operando 2
+        bDigitosOperando2MCMMCD.addKeyListener(keyAdapterMCMMCD);
 
         //Solicitamos focus para cuando inicie el programa sobre el panel Calculadora
         pCalculadora.requestFocus();
@@ -692,6 +821,10 @@ public class GUI {
             button.setMaximumSize(zeroDim);
             return button;
         }
+    }
+
+    protected static Point getLocation(){
+        return f.getLocation();
     }
 
 }
