@@ -9,7 +9,17 @@ public class Digitos extends GUI {
 
     private static JFrame f;
     private static JLabel lTitulo;
-    public static void digitos (JTextField tf, String titulo, JPanel p){
+
+    /**
+     * Metodo que abre una ventana complementaria a la GUI principal y que permite digitar en el TextField parametrizado
+     *
+     * @author Alejandro Recarte Rebollo
+     * @param tf        TextField objetivo de la digitacion
+     * @param titulo    Título del TextField
+     * @param p         Panel receptor de los KeyListeners
+     */
+
+    public static void mostrarDigitos(JTextField tf, String titulo, JPanel p){
 
         f = new JFrame("Dígitos");
         f.setUndecorated(true);
@@ -79,12 +89,25 @@ public class Digitos extends GUI {
         f.setVisible(true);
     }
 
+    /**
+     * Metodo que permite cerrar la ventana complementaria
+     *
+     * @author Alejandro Recarte Rebollo
+     */
+
     public static void ocultarDigitos(){
         try{
             f.setVisible(false);
         }catch(Exception e){}
         f = null;
     }
+
+    /**
+     * Funcion que devuelve si el frame de la venta complementaria es visible o no
+     *
+     * @author Alejandro Recarte Rebollo
+     * @return  La visibilidad del frame
+     */
 
     public static boolean isVisible(){
         boolean visible = false;
@@ -96,6 +119,13 @@ public class Digitos extends GUI {
         return visible;
     }
 
+    /**
+     * Devuelve el titulo del TextField receptor
+     *
+     * @author Alejandro Recarte Rebollo
+     * @return  Titulo del TextField receptor
+     */
+
     public static String getTitulo(){
         String titulo = new String("");
 
@@ -104,6 +134,14 @@ public class Digitos extends GUI {
         }
         return titulo;
     }
+
+    /**
+     * Metodo que permite establecer la localización de la ventana complementaria
+     *
+     * @author Alejandro Recarte Rebollo
+     * @param x Coordenada x
+     * @param y Coordenada y
+     */
 
     public static void setLocation(int x, int y){
         if(f != null){

@@ -1,20 +1,16 @@
 package Calculadora;
 
-import javax.sound.sampled.Line;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import javax.swing.plaf.ScrollBarUI;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.SQLOutput;
 
 public class GUI {
 
-    private static JFrame f;
-    protected static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    //Declaración de constantes
+
     protected static int[] TAMANYO_VENTANA = {400, 400};
-    private static int operacion;
     private final static int[] COD_PRINCIPAL = {188,152,243};
     private final static int[] COD_SECUNDARIO = {211,188,246};
     private final static int[] COD_SELECCION = {244,126,142};
@@ -24,6 +20,12 @@ public class GUI {
     protected final static Color COLOR_SECUNDARIO = new Color(COD_SECUNDARIO[0], COD_SECUNDARIO[1], COD_SECUNDARIO[2]);
     protected final static Color COLOR_SELECCION = new Color(COD_SELECCION[0], COD_SELECCION[1], COD_SELECCION[2]);
     protected final static Color COLOR_TEXTFIELD = new Color(COD_TEXTFIELD[0], COD_TEXTFIELD[1], COD_TEXTFIELD[2]);
+
+    //Declaración de variables
+
+    private static JFrame f;
+    protected static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private static int operacion;
     private static JButton bSumaCalc;
     private static JButton bRestaCalc;
     private static JButton bMultiCalc;
@@ -31,6 +33,11 @@ public class GUI {
     private static JButton bPotenciaCalc;
     private static JButton bRaizCalc;
 
+    /**
+     * Metodo que permite abrir la venta principal de la calculadora
+     *
+     * @author Alejandro Recarte Rebollo
+     */
 
     public static void principal() {
         operacion = 0;
@@ -440,7 +447,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 if(!Digitos.isVisible() || !Digitos.getTitulo().equals("Operando 1")) {
                     Digitos.ocultarDigitos();
-                    Digitos.digitos(tfOperando1Calc, "Operando 1", pCalculadora);
+                    Digitos.mostrarDigitos(tfOperando1Calc, "Operando 1", pCalculadora);
                     pCalculadora.requestFocus();
                 }else{
                     Digitos.ocultarDigitos();
@@ -455,7 +462,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 if(!Digitos.isVisible() || !Digitos.getTitulo().equals("Operando 2")) {
                     Digitos.ocultarDigitos();
-                    Digitos.digitos(tfOperando2Calc, "Operando 2", pCalculadora);
+                    Digitos.mostrarDigitos(tfOperando2Calc, "Operando 2", pCalculadora);
                     pCalculadora.requestFocus();
                 }else{
                     Digitos.ocultarDigitos();
@@ -583,7 +590,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 if(!Digitos.isVisible() || !Digitos.getTitulo().equals("Operando")) {
                     Digitos.ocultarDigitos();
-                    Digitos.digitos(tfOperandoFact, "Operando", pFactorizacion);
+                    Digitos.mostrarDigitos(tfOperandoFact, "Operando", pFactorizacion);
                 }else{
                     Digitos.ocultarDigitos();
                 }
@@ -631,7 +638,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 if(!Digitos.isVisible() || !Digitos.getTitulo().equals("Operando 1")) {
                     Digitos.ocultarDigitos();
-                    Digitos.digitos(tfOperando1MCMMCD, "Operando 1", pMCMMCD);
+
                 }else{
                     Digitos.ocultarDigitos();
                 }
@@ -644,7 +651,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 if(!Digitos.isVisible() || !Digitos.getTitulo().equals("Operando 2")) {
                     Digitos.ocultarDigitos();
-                    Digitos.digitos(tfOperando2MCMMCD, "Operando 2", pMCMMCD);
+                    Digitos.mostrarDigitos(tfOperando2MCMMCD, "Operando 2", pMCMMCD);
                 }else{
                     Digitos.ocultarDigitos();
                 }
@@ -725,7 +732,14 @@ public class GUI {
     //METODOS AUXILIARES==========================================================================================================================================
 
     //Sumar
-    public static void sumar() {
+
+    /**
+     * Metodo que cambia el color del boton sumar y establece el número de operacion
+     *
+     * @author Alejandro Recarte Rebollo
+     */
+
+    private static void sumar() {
         bSumaCalc.setBackground(COLOR_SELECCION);
         bRestaCalc.setBackground(COLOR_SECUNDARIO);
         bMultiCalc.setBackground(COLOR_SECUNDARIO);
@@ -736,7 +750,14 @@ public class GUI {
     }
 
     //Restar
-    public static void restar() {
+
+    /**
+     * Metodo que cambia el color del boton restar y establece el numero de operacion
+     *
+     * @author Alejandro Recarte Rebollo
+     */
+
+    private static void restar() {
         bSumaCalc.setBackground(COLOR_SECUNDARIO);
         bRestaCalc.setBackground(COLOR_SELECCION);
         bMultiCalc.setBackground(COLOR_SECUNDARIO);
@@ -747,6 +768,13 @@ public class GUI {
     }
 
     //Multiplicar
+
+    /**
+     * Metodo que cambia el color del boton multiplicar y establece el numero de operacion
+     *
+     * @author Alejandro Recarte Rebollo
+     */
+
     private static void multiplicar() {
         bSumaCalc.setBackground(COLOR_SECUNDARIO);
         bRestaCalc.setBackground(COLOR_SECUNDARIO);
@@ -758,6 +786,13 @@ public class GUI {
     }
 
     //Dividir
+
+    /**
+     * Metodo que cambia el color del botón dividir y establece el número de operacion
+     *
+     * @author Alejandro Recarte Rebollo
+     */
+
     private static void dividir() {
         bSumaCalc.setBackground(COLOR_SECUNDARIO);
         bRestaCalc.setBackground(COLOR_SECUNDARIO);
@@ -767,6 +802,14 @@ public class GUI {
         bRaizCalc.setBackground(COLOR_SECUNDARIO);
         operacion = 4;
     }
+
+    //Potencia
+
+    /**
+     * Metodo que cambia el color del boton potencia y establece el numero de operacion
+     *
+     * @author Alejandro Recarte Rebollo
+     */
 
     private static void potencia(){
         bSumaCalc.setBackground(COLOR_SECUNDARIO);
@@ -778,6 +821,14 @@ public class GUI {
         operacion = 5;
     }
 
+    //Raiz
+
+    /**
+     * Metodo que cambia el color del botón raiz y establece el numero de operacion
+     *
+     * @author Alejandro Recarte Rebollo
+     */
+
     private static void raiz(){
         bSumaCalc.setBackground(COLOR_SECUNDARIO);
         bRestaCalc.setBackground(COLOR_SECUNDARIO);
@@ -788,19 +839,27 @@ public class GUI {
         operacion = 6;
     }
 
-    //Calcular
+    //GetLocation
 
-    private static double calcular(double op1, double op2){
-        return Calc.calcular(operacion, op1, op2);
+    /**
+     * Funcion que devuelve el punto en el que esta situada la ventana
+     *
+     * @author Alejandro Recarte Rebollo
+     * @return Punto donde se situa la ventana
+     */
+
+    protected static Point getLocation(){
+        return f.getLocation();
     }
 
     //CLASES AUXILIARES===========================================================================================================================================
 
     //Custom ScrollBar
+
     static class CustomScrollBarUI extends BasicScrollBarUI {
         @Override
         protected void configureScrollBarColors() {
-            this.thumbColor = COLOR_SECUNDARIO; // Cambia el color del thumb del scrollbar aquí
+            this.thumbColor = COLOR_SECUNDARIO;
         }
 
         @Override
@@ -822,9 +881,4 @@ public class GUI {
             return button;
         }
     }
-
-    protected static Point getLocation(){
-        return f.getLocation();
-    }
-
 }

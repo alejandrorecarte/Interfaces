@@ -2,6 +2,16 @@ package Calculadora;
 
 public class Calc {
 
+    /**
+     * Funcion que permite hacer los calculos de las operaciones de suma, resta, multiplicacion, division, potencia y raiz.
+     *
+     * @author Alejandro Recarte Rebollo
+     * @param operacion Numero de la operacion que se va a realizar suma(1), resta(2), multiplicacion(3), division(4), potencia(5), raiz(6)
+     * @param op1       Primer operando
+     * @param op2       Segundo operando
+     * @return          Resultado decimal
+     */
+
     public static double calcular(int operacion, double op1, double op2){
 
         double resultado = 0;
@@ -18,6 +28,15 @@ public class Calc {
 
         return resultado;
     }
+
+    /**
+     * Funcion que permite obtener el diagrama de factorizacion de un digito.
+     * Codigo original: "https://github.com/AlexRecarte/Programacion/blob/3f6840d0734be78e5b67f17887ee8107fd3ea507/Calculadora%20mejorada/calculadora.java"
+     *
+     * @author Alejandro Recarte Rebollo
+     * @param n Operando para factorizar
+     * @return  String con el diagrama
+     */
 
     public static String factorizar(int n){
         String resultado = new String("Factorización de " +n);
@@ -64,6 +83,15 @@ public class Calc {
         return resultado;
     }
 
+    /**
+     * Funcion que devuelve el Maximo Comun Divisor de dos numeros.
+     *
+     * @author Alejandro Recarte Rebollo
+     * @param a Primer operando
+     * @param b Segundo operando
+     * @return  MCD resultado
+     */
+
     public static int mcd(int a, int b) {
         while (b != 0) {
             int temp = b;
@@ -72,6 +100,16 @@ public class Calc {
         }
         return a;
     }
+
+    /**
+     * Funcion que devuelve el Minimo Comun Multiplo de dos numeros.
+     *
+     * @author Alejandro Recarte Rebollo
+     * @param a Primer operando
+     * @param b Segundo operando
+     * @return  MCM resultado
+     */
+
     public static int mcm(int a, int b) {
         return a * (b / mcd(a, b));
     }
