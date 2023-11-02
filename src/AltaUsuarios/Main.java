@@ -1,0 +1,7 @@
+package AltaUsuarios;
+
+public class Main {
+    public static void main(String[] args) {
+        AltaUsuario.altaUsuario();
+    }
+}
