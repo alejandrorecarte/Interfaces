@@ -26,7 +26,7 @@ public class AltaUsuario {
         p.add(lApellidos, new GridBagConstraints(2,0,1,1,1.0,1.0,GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL,
                 new Insets(10,3, 3,3),0,0));
 
-        JLabel lDni = new JLabel ("DNI:");
+        JLabel lDni = new JLabel ("DNI:*");
         p.add(lDni, new GridBagConstraints(3,0,1,1,1.0,1.0,GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL,
                 new Insets(10,3, 3,3),0,0));
 

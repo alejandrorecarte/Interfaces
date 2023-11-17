@@ -727,6 +727,34 @@ public class GUI {
 
         //Solicitamos focus para cuando inicie el programa sobre el panel Calculadora
         pCalculadora.requestFocus();
+
+        //KeyListenerTextFields
+
+        KeyListener keyListenerTF = new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!(Character.isDigit(c) || (c == KeyEvent.VK_PERIOD) || (c == KeyEvent.VK_DELETE))) {
+                    e.consume();
+                    // Ignorar la tecla si no es un número, retroceso o suprimir
+                }
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                // No es necesario implementar nada aquí
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                // No es necesario implementar nada aquí
+            }
+        };
+        tfOperando1Calc.addKeyListener(keyListenerTF);
+        tfOperando2Calc.addKeyListener(keyListenerTF);
+        tfOperandoFact.addKeyListener(keyListenerTF);
+        tfOperando1MCMMCD.addKeyListener(keyListenerTF);
+        tfOperando2MCMMCD.addKeyListener(keyListenerTF);
     }
 
     //METODOS AUXILIARES==========================================================================================================================================
