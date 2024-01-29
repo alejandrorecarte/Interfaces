@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.Date;
+import java.util.Locale;
 import java.util.Properties;
-
 
 public class TareasForm {
     ;
@@ -51,10 +51,10 @@ public class TareasForm {
     private static ArrayList<Tarea> tareas;
     private static JFrame frame;
     private Date fecha = new Date();
-    private Properties propiedades;
+    public Properties propiedades;
 
     public TareasForm() {
-        cambiarIdioma("spanish.properties");
+        detectarIdioma();
         try{
             tareas = Streams.importarTareas("src/Multilenguaje/model/data/ArrayListTarea");
         }catch(Exception e){
@@ -310,20 +310,20 @@ public class TareasForm {
             public void actionPerformed(ActionEvent e) {
                 try {
                     ArrayList<Tarea> tareasFiltradas = new ArrayList<Tarea>();
-                    for (int i = 0; i < tareas.size(); i++) {
-                        if (cbFiltrar.getSelectedItem().equals("Todas")) {
-                            tareasFiltradas.add(tareas.get(i));
+                        for (int i = 0; i < tareas.size(); i++) {
+                            if (cbFiltrar.getSelectedItem().equals(propiedades.getProperty("todas"))) {
+                                tareasFiltradas.add(tareas.get(i));
+                            }
+                            if (cbFiltrar.getSelectedItem().equals(propiedades.getProperty("pendientes")) && tareas.get(i).getRealizada().equals(propiedades.getProperty("pendiente"))) {
+                                tareasFiltradas.add(tareas.get(i));
+                            }
+                            if (cbFiltrar.getSelectedItem().equals(propiedades.getProperty("completadas")) && tareas.get(i).getRealizada().equals(propiedades.getProperty("completado"))) {
+                                tareasFiltradas.add(tareas.get(i));
+                            }
                         }
-                        if (cbFiltrar.getSelectedItem().equals("Pendientes") && tareas.get(i).getRealizada().equals("Pendiente")) {
-                            tareasFiltradas.add(tareas.get(i));
-                        }
-                        if (cbFiltrar.getSelectedItem().equals("Completadas") && tareas.get(i).getRealizada().equals("Completado")) {
-                            tareasFiltradas.add(tareas.get(i));
-                        }
-                    }
                     actualizarTabla(tList, tareasFiltradas);
 
-                }catch (IndexOutOfBoundsException ex){}
+                }catch (Exception ex){}
                 bAnyadir.setEnabled(true);
                 bEliminar.setEnabled(false);
                 bModificar.setEnabled(false);
@@ -365,9 +365,9 @@ public class TareasForm {
             @Override
             public void actionPerformed(ActionEvent e) {
                 switch((String) cbIdioma.getSelectedItem()){
-                    case "Español": cambiarIdioma("spanish.properties"); break;
-                    case "English": cambiarIdioma("english.properties"); break;
-                    case "Italiano": cambiarIdioma("italian.properties"); break;
+                    case "Español": cambiarIdioma("languages_es_ES.properties"); break;
+                    case "English": cambiarIdioma("languages_en_UK.properties"); break;
+                    case "Italiano": cambiarIdioma("languages_it_IT.properties"); break;
                 }
             }
         });
@@ -385,10 +385,12 @@ public class TareasForm {
 
 
     private void actualizarTabla(JTable t, ArrayList<Tarea> tareas){
-        String[] columnNames = {propiedades.getProperty("tNombre"), propiedades.getProperty("tDescripcion"), propiedades.getProperty("tFecha"), propiedades.getProperty("tCompletado"), propiedades.getProperty("tPrioridad")};
-        DefaultTableModel model = new DefaultTableModel(convertListTo2DArray(tareas), columnNames);
-        t.setModel(model);
-        t.getColumnModel().getColumn(0).setPreferredWidth(0);
+        if(tareas.size() > 0) {
+            String[] columnNames = {propiedades.getProperty("tNombre"), propiedades.getProperty("tDescripcion"), propiedades.getProperty("tFecha"), propiedades.getProperty("tCompletado"), propiedades.getProperty("tPrioridad")};
+            DefaultTableModel model = new DefaultTableModel(convertListTo2DArray(tareas), columnNames);
+            t.setModel(model);
+            t.getColumnModel().getColumn(0).setPreferredWidth(0);
+        }
     }
 
     private void cambiarIdioma(String idioma){
@@ -410,9 +412,11 @@ public class TareasForm {
         lFiltrar.setText(propiedades.getProperty("lFiltrar"));
         lIdioma.setText(propiedades.getProperty("lIdioma"));
         bAyuda.setText(propiedades.getProperty("bAyuda"));
+
         cbRealizada.removeAllItems();
         cbRealizada.addItem(propiedades.getProperty("pendiente"));
         cbRealizada.addItem(propiedades.getProperty("completado"));
+
         cbFiltrar.removeAllItems();
         cbFiltrar.addItem(propiedades.getProperty("todas"));
         cbFiltrar.addItem(propiedades.getProperty("pendientes"));
@@ -424,14 +428,26 @@ public class TareasForm {
     }
 
     private static Object[][] convertListTo2DArray(ArrayList<Tarea> list) {
-        Object[][] array = new Object[list.size()][];
-        for (int i = 0; i < list.size(); i++) {
-            array[i][0] = list.get(i).getNombre();
-            array[i][1] = list.get(i).getDescripcion();
-            array[i][2] = list.get(i).getFecha();
-            array[i][3] = list.get(i).getRealizada();
-            array[i][4] = list.get(i).getPrioridad();
+        Object[][] array = new Object[list.size()][5];
+        try {
+            for (int i = 0; i < list.size(); i++) {
+                array[i][0] = list.get(i).getNombre();
+                array[i][1] = list.get(i).getDescripcion();
+                array[i][2] = list.get(i).getFecha();
+                array[i][3] = list.get(i).getRealizada();
+                array[i][4] = list.get(i).getPrioridad();
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
-        return array;
+            return array;
+    }
+
+    public void detectarIdioma(){
+        switch(Locale.getDefault().getDisplayLanguage().toLowerCase()){
+            case "español": cambiarIdioma("languages_es_ES.properties"); cbIdioma.setSelectedItem("Español"); break;
+            case "english": cambiarIdioma("languages_en_EN.properties"); cbIdioma.setSelectedItem("English"); break;
+            case "italiano": cambiarIdioma("languages_it_IT.properties"); cbIdioma.setSelectedItem("Italiano"); break;
+        }
     }
 }
